@@ -5,7 +5,7 @@ A module for Ansible for configuring ssh configuration files.
 
 # Why?
 
-We have several libraries that carries shared functionality between
+We have several libraries that carry shared functionality between
 projects at work. These libraries are on GitHub and they're in their
 own repo. Our deploy users don't have access to every single repo but
 only the ones they need to deploy a specific project.
@@ -19,9 +19,9 @@ Host: internal-lib.github.com
   IdentityFile: id_rsa.internal-lib
 ```
 
-When I starterd out with Ansibel I tried just adding in our lines
-with [lineinfile] and it didn't work out for me since it was several lines
-that needed to be added.
+When I started out with Ansible I tried just adding in our lines
+with [lineinfile], but it didn't work out for me since several lines
+needed to be added.
 
 # Usage
 
