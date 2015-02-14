@@ -589,7 +589,7 @@ def main():
             hostname=dict(type='str'),
             remote_user=dict(type='str'),
             identity_file=dict(type='str'),
-            user=dict(default='root', type='str'),
+            user=dict(default=None, type='str'),
         ),
         supports_check_mode=True
     )
@@ -607,8 +607,9 @@ def main():
     hosts_removed = []
     hosts_added = []
 
-    if user == 'root':
+    if user is None:
         config_file = '/etc/ssh/ssh_config'
+        user = 'root'
     else:
         config_file = os.path.join(
             os.path.expanduser('~{0}'.format(user)), '.ssh', 'config'
