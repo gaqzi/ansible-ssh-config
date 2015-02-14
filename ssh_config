@@ -31,6 +31,10 @@ options:
     description:
       - The actual host to connnect to when connecting to the host defined.
     choices: []
+  remote_user:
+    description:
+      - Specifies the user to log in as.
+    choices: []
   identify_file:
     description:
       - The path to an identitity file (ssh private) that will be used
@@ -50,6 +54,7 @@ EXAMPLES = '''
 - config:
     user=deploy
     host=old-internal.github.com
+    remote_user=git
     state=absent
 '''
 
@@ -582,6 +587,7 @@ def main():
             state=dict(default='present', choices=['present', 'absent']),
             host=dict(required=True, type='str'),
             hostname=dict(type='str'),
+            remote_user=dict(type='str'),
             identity_file=dict(type='str'),
             user=dict(default='root', type='str'),
         ),
@@ -592,7 +598,8 @@ def main():
     host = module.params.get('host')
     args = dict(
         hostname=module.params.get('hostname'),
-        identity_file=module.params.get('identity_file')
+        identity_file=module.params.get('identity_file'),
+        user=module.params.get('remote_user')
     )
     state = module.params.get('state')
     config_changed = False
