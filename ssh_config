@@ -81,6 +81,7 @@ EXAMPLES = '''
 L{SSHConfig}.
 """
 
+import copy
 import fnmatch
 import os
 import re
@@ -566,12 +567,14 @@ class ConfigParser(object):
 
 
 def change_host(options, **kwargs):
+    options = copy.deepcopy(options)
     changed = False
     for k, v in kwargs.items():
         if not v:
-            continue
-
-        if k == 'identityfile' or k == 'identity_file':
+            if options.get(k):
+                del options[k]
+                changed = True
+        elif k == 'identityfile' or k == 'identity_file':
             if not v in options.get('identityfile', []):
                 options['identityfile'] = [v]
                 changed = True
