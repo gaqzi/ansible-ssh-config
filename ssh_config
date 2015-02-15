@@ -43,6 +43,9 @@ options:
         when connecting to this host.
         File need to exist and be 0600 to be valid.
     choices: []
+  user_known_hosts_file:
+    description:
+      - Sets the user known hosts file option
 '''
 
 EXAMPLES = '''
@@ -596,6 +599,7 @@ def main():
             remote_user=dict(type='str'),
             identity_file=dict(type='str'),
             user=dict(default=None, type='str'),
+            user_known_hosts_file=dict(default=None, type='str'),
         ),
         supports_check_mode=True
     )
@@ -605,7 +609,8 @@ def main():
     args = dict(
         hostname=module.params.get('hostname'),
         identity_file=module.params.get('identity_file'),
-        user=module.params.get('remote_user')
+        user=module.params.get('remote_user'),
+        user_known_hosts_file=module.params.get('user_known_hosts_file'),
     )
     state = module.params.get('state')
     config_changed = False
