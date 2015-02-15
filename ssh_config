@@ -575,7 +575,7 @@ def change_host(options, **kwargs):
                 del options[k]
                 changed = True
         elif k == 'identityfile' or k == 'identity_file':
-            if not v in options.get('identityfile', []):
+            if v not in options.get('identityfile', []):
                 options['identityfile'] = [v]
                 changed = True
         elif options.get(k) != v:
@@ -584,9 +584,10 @@ def change_host(options, **kwargs):
 
     return changed, options
 
+
 def main():
     module = AnsibleModule(
-        argument_spec = dict(
+        argument_spec=dict(
             state=dict(default='present', choices=['present', 'absent']),
             host=dict(required=True, type='str'),
             hostname=dict(type='str'),
@@ -665,10 +666,10 @@ def main():
 
     if config_changed and not module.check_mode:
         config.write_to_ssh_config()
-        # Make sure the file is owned by the right user
+        # MAKE sure the file is owned by the right user
         module.set_owner_if_different(config_file, user, False)
         module.set_group_if_different(config_file, user, False)
-        module.set_mode_if_different(config_file, 0600, False)
+        module.set_mode_if_different(config_file, '0600', False)
 
     module.exit_json(changed=config_changed,
                      hosts_changed=hosts_changed,
