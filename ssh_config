@@ -46,6 +46,10 @@ options:
   user_known_hosts_file:
     description:
       - Sets the user known hosts file option
+  strict_host_key_checking:
+    description:
+      - Whether to strictly check the host key when doing connections to the remote host
+    choices: ['yes', 'no', 'ask']
 '''
 
 EXAMPLES = '''
@@ -600,6 +604,10 @@ def main():
             identity_file=dict(type='str'),
             user=dict(default=None, type='str'),
             user_known_hosts_file=dict(default=None, type='str'),
+            strict_host_key_checking=dict(
+                default=None,
+                choices=['yes', 'no', 'ask']
+            ),
         ),
         supports_check_mode=True
     )
@@ -610,6 +618,7 @@ def main():
         hostname=module.params.get('hostname'),
         identity_file=module.params.get('identity_file'),
         user=module.params.get('remote_user'),
+        strict_host_key_checking=module.params.get('strict_host_key_checking'),
         user_known_hosts_file=module.params.get('user_known_hosts_file'),
     )
     state = module.params.get('state')
