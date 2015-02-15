@@ -36,6 +36,8 @@ cases of adding, changing and removing hosts from your config file.
   ssh_config: host=old-internal-lib.github.com state=absent
 ```
 
+For the full set of options please look at the top of the module file.
+
 # Installation
 
 Copy `ssh_config` into the library directory at the root of your Playbook.
