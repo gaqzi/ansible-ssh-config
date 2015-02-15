@@ -21,3 +21,6 @@
     - `strict_host_key_checking` - @gaqzi
 
 ## [unversioned initial release] - 2013-11-23
+
+[0.1.0]: https://github.com/gaqzi/ansible-ssh-config/compare/96b7e80e71a4199ff4c5daa4b542adbd46f26a70...v0.1.0
+[unversioned initial release]: https://github.com/gaqzi/ansible-ssh-config/commit/96b7e80e71a4199ff4c5daa4b542adbd46f26a70
