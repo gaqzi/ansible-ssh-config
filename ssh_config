@@ -31,8 +31,11 @@ options:
     choices: []
   hostname:
     description:
-      - The actual host to connnect to when connecting to the host defined.
+      - The actual host to connect to when connecting to the host defined.
     choices: []
+  port:
+    description:
+      - The actual port to connect to when connecting to the host defined.
   remote_user:
     description:
       - Specifies the user to log in as.
@@ -65,6 +68,10 @@ EXAMPLES = '''
     host=old-internal.github.com
     remote_user=git
     state=absent
+- config:
+    user=deploy
+    host=old-internal.github.com
+    port=2222
 '''
 
 # The following block of code is part of paramiko.
@@ -600,6 +607,7 @@ def main():
             state=dict(default='present', choices=['present', 'absent']),
             host=dict(required=True, type='str'),
             hostname=dict(type='str'),
+            port=dict(type='str'),
             remote_user=dict(type='str'),
             identity_file=dict(type='str'),
             user=dict(default=None, type='str'),
@@ -616,6 +624,7 @@ def main():
     host = module.params.get('host')
     args = dict(
         hostname=module.params.get('hostname'),
+        port=module.params.get('port'),
         identity_file=module.params.get('identity_file'),
         user=module.params.get('remote_user'),
         strict_host_key_checking=module.params.get('strict_host_key_checking'),

@@ -31,7 +31,7 @@ cases of adding, changing and removing hosts from your config file.
 ```yaml
 - name: Add internal-lib.github.com to ssh config
   ssh_config: host=internal-lib.github.com hostname=github.com
-              identity_file=id_rsa.internal-lib state=present
+              identity_file=id_rsa.internal-lib port=222 state=present
 - name: Remove old-internal-lib.github.com from ssh config
   ssh_config: host=old-internal-lib.github.com state=absent
 ```
