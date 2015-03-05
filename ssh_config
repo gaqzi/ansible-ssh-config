@@ -54,6 +54,13 @@ options:
     description:
       - Whether to strictly check the host key when doing connections to the remote host
     choices: ['yes', 'no', 'ask']
+  batch_mode:
+    description:
+      - If set to "yes", passphrase/password querying will be disabled.
+        This option is useful in scripts and other batch jobs where no
+        user is present to supply the password.
+    choices: ['yes', 'no']
+    default: no
 '''
 
 EXAMPLES = '''
@@ -613,8 +620,13 @@ def main():
             user=dict(default=None, type='str'),
             user_known_hosts_file=dict(default=None, type='str'),
             strict_host_key_checking=dict(
+                choices=['yes', 'no', 'ask'],
+                type='str',
+            ),
+            batch_mode=dict(
                 default=None,
-                choices=['yes', 'no', 'ask']
+                choices=['yes', 'no'],
+                type='str',
             ),
         ),
         supports_check_mode=True
@@ -629,6 +641,7 @@ def main():
         user=module.params.get('remote_user'),
         strict_host_key_checking=module.params.get('strict_host_key_checking'),
         user_known_hosts_file=module.params.get('user_known_hosts_file'),
+        batch_mode=module.params.get('batch_mode'),
     )
     state = module.params.get('state')
     config_changed = False
