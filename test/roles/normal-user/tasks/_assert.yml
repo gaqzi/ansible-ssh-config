@@ -1,0 +1,16 @@
+---
+
+- name: register shell output
+  shell: cat ~vagrant/.ssh/config
+  register: config
+  changed_when: false
+
+- assert:
+    that:
+      - "'{{ option }} {{ value }}' in config.stdout"
+
+- name: reset .ssh/config
+  file: >
+    path=~vagrant/.ssh/config
+    state=absent
+  changed_when: false

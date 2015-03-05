@@ -1,0 +1,43 @@
+---
+
+- name: Test port number
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    port=2200
+- include: _assert.yml option=port value=2200
+
+- name: Test user
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    remote_user=gaqzi
+- include: _assert.yml option=user value=gaqzi
+
+- name: Test hostname
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    hostname=test.example.com
+- include: _assert.yml option=hostname value=test.example.com
+
+- name: Test identity file
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    identity_file=id_rsa.fake
+- include: _assert.yml option=identityfile value=id_rsa.fake
+
+- name: Test user known hosts file
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    user_known_hosts_file=/dev/null
+- include: _assert.yml option=userknownhostsfile value=/dev/null
+
+- name: Test strict host key checking
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    strict_host_key_checking=yes
+- include: _assert.yml option=stricthostkeychecking value=yes

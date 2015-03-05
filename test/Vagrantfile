@@ -1,0 +1,8 @@
+Vagrant.configure('2') do |config|
+  config.vm.box = 'box-cutter/centos70'
+  config.vm.hostname = 'ssh-config'
+
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = 'test.yml'
+  end
+end
