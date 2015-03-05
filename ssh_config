@@ -36,6 +36,7 @@ options:
   port:
     description:
       - The actual port to connect to when connecting to the host defined.
+    required: false
   remote_user:
     description:
       - Specifies the user to log in as.
