@@ -33,6 +33,7 @@ options:
     description:
       - The actual host to connect to when connecting to the host defined.
     choices: []
+    required: false
   port:
     description:
       - The actual port to connect to when connecting to the host defined.
@@ -41,19 +42,24 @@ options:
     description:
       - Specifies the user to log in as.
     choices: []
+    required: false
   identify_file:
     description:
       - The path to an identitity file (ssh private) that will be used
         when connecting to this host.
         File need to exist and be 0600 to be valid.
     choices: []
+    required: false
   user_known_hosts_file:
     description:
       - Sets the user known hosts file option
+    required: false
   strict_host_key_checking:
     description:
-      - Whether to strictly check the host key when doing connections to the remote host
+      - Whether to strictly check the host key when doing connections
+        to the remote host
     choices: ['yes', 'no', 'ask']
+    required: false
   batch_mode:
     description:
       - If set to "yes", passphrase/password querying will be disabled.
@@ -61,6 +67,7 @@ options:
         user is present to supply the password.
     choices: ['yes', 'no']
     default: no
+    required: false
 '''
 
 EXAMPLES = '''
