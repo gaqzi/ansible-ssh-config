@@ -57,3 +57,17 @@ reusable/shareable with Ansible we ended up here.
 [lineinfile]: http://www.ansibleworks.com/docs/modules.html#lineinfile
 [stormssh]: https://github.com/emre/storm/
 [paramiko]: https://github.com/paramiko/paramiko
+
+# Version 1.0 changes
+
+I'm currently working on finishing this module up for a version 1.0 release.
+What I aim to accomplish with this is to add tests for all the options
+supported by OpenSSH, and support for the same, so that I then can replace
+the Storm and Paramiko code with my own. So that I can do a pull request
+to the core Ansible repository for this module.
+
+The [develop] branch contains the ongoing work for this and for the initial
+bit I'm just quickly adding all the options, I will then afterwards focus on
+cleaning up the code.
+
+[develop]: https://github.com/gaqzi/ansible-ssh-config/tree/develop
