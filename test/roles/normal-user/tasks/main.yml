@@ -55,3 +55,42 @@
     host=example.com
     bind_address=jump-box.example.com
 - include: _assert.yml option=bindaddress value=jump-box.example.com
+
+- name: Test canonical domains
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    canonical_domains=test.example.com
+- include: _assert.yml option=canonicaldomains value=test.example.com
+
+- name: Test canonicalize fallback local
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    canonicalize_fallback_local=no
+- include: _assert.yml option=canonicalizefallbacklocal
+                       value=no
+
+- name: Test canonicalize hostname
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    canonicalize_hostname=always
+- include: _assert.yml option=canonicalizehostname
+                       value=always
+
+- name: Test canonicalize max dots
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    canonicalize_max_dots=2
+- include: _assert.yml option=canonicalizemaxdots
+                       value=2
+
+- name: Test canonicalize permitted cnames
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    canonicalize_permitted_cnames="*.a.example.com:*.b.example.com,*.c.example.com"
+- include: _assert.yml option=canonicalizepermittedcnames
+                       value=*.a.example.com:*.b.example.com,*.c.example.com

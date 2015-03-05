@@ -75,6 +75,61 @@ options:
         than one address. Note that this option does not work if
         UsePrivilegedPort is set to "yes".
     required: false
+  canonical_domains:
+    description:
+      - CanonicalDomains When CanonicalizeHostname is enabled,
+        this option specifies the list of domain suffixes in which to
+        search for the specified destination host.
+    required: false
+  canonicalize_fallback_local:
+    description:
+      - Specifies whether to fail with an error when hostname
+        canonicalization fails. The default, "yes", will attempt to
+        look up the unqualified hostname using the system resolver's
+        search rules. A value of "no" will cause ssh to fail
+        instantly if CanonicalizeHostname is enabled and the target
+        hostname cannot be found in any of the domains specified by
+        CanonicalDomains.
+    choices: ['yes', 'no']
+    default: yes
+    required: false
+  canonicalize_hostname:
+    description:
+      - Controls whether explicit hostname canonicalization is performed.
+        The default, "no", is not to perform any name rewriting and
+        let the system resolver handle all hostname lookups.
+        If set to "yes" then, for connections that do not use a
+        ProxyCommand, ssh will attempt to canonicalize the hostname
+        specified on the command line using the CanonicalDomains
+        suffixes and CanonicalizePermittedCNAMEs rules. If
+        CanonicalizeHostname is set to "always", then canonicalization
+        is applied to proxied connections too.
+
+        If this option is enabled, then the configuration files are
+        processed again using the new target name to pick up any new
+        configuration in matching Host and Match stanzas.
+    choiches: ['yes', 'no', 'always']
+    default: no
+    required: false
+  canonicalize_max_dots:
+    description:
+      - Specifies the maximum number of dot characters in a
+        hostname before canonicalization is disabled.
+        The default, "1", allows a single dot (i.e. hostname.subdomain).
+    default: 1
+    required: false
+  canonicalize_permitted_cnames:
+    description:
+      - Specifies rules to determine whether CNAMEs should be followed when
+        canonicalizing hostnames. The rules consist of one or more
+        arguments of source_domain_list:target_domain_list, where
+        source_domain_list is a pattern-list of domains that may follow
+        CNAMEs in canonicalization, and target_domain_list is a
+        pattern-list of domains that they may resolve to.  For example,
+        "*.a.example.com:*.b.example.com,*.c.example.com" will allow
+        hostnames matching "*.a.example.com" to be canonicalized to
+        names in the "*.b.example.com" or "*.c.example.com" domains.
+    required: false
 '''
 
 EXAMPLES = '''
@@ -646,6 +701,27 @@ def main():
                 default=None,
                 type='str',
             ),
+            canonical_domains=dict(
+                default=None,
+                type='str',
+            ),
+            canonicalize_fallback_local=dict(
+                default=None,
+                type='str',
+            ),
+            canonicalize_hostname=dict(
+                default=None,
+                type='str',
+                choices=['yes', 'no', 'always'],
+            ),
+            canonicalize_max_dots=dict(
+                default=None,
+                type='int',
+            ),
+            canonicalize_permitted_cnames=dict(
+                default=None,
+                type='str',
+            ),
         ),
         supports_check_mode=True
     )
@@ -661,6 +737,15 @@ def main():
         user_known_hosts_file=module.params.get('user_known_hosts_file'),
         batch_mode=module.params.get('batch_mode'),
         bind_address=module.params.get('bind_address'),
+        canonical_domains=module.params.get('canonical_domains'),
+        canonicalize_fallback_local=module.params.get(
+            'canonicalize_fallback_local'
+        ),
+        canonicalize_hostname=module.params.get('canonicalize_hostname'),
+        canonicalize_max_dots=module.params.get('canonicalize_max_dots'),
+        canonicalize_permitted_cnames=module.params.get(
+            'canonicalize_permitted_cnames'
+        ),
     )
     state = module.params.get('state')
     config_changed = False
