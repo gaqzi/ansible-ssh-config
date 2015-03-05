@@ -48,3 +48,10 @@
     host=example.com
     batch_mode=yes
 - include: _assert.yml option=batchmode value=yes
+
+- name: Test bind address
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    bind_address=jump-box.example.com
+- include: _assert.yml option=bindaddress value=jump-box.example.com

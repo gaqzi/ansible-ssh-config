@@ -68,6 +68,13 @@ options:
     choices: ['yes', 'no']
     default: no
     required: false
+  bind_address:
+    description:
+      - BindAddress Use the specified address on the local machine as the
+        source address of the connection. Only useful on systems with more
+        than one address. Note that this option does not work if
+        UsePrivilegedPort is set to "yes".
+    required: false
 '''
 
 EXAMPLES = '''
@@ -635,6 +642,10 @@ def main():
                 choices=['yes', 'no'],
                 type='str',
             ),
+            bind_address=dict(
+                default=None,
+                type='str',
+            ),
         ),
         supports_check_mode=True
     )
@@ -649,6 +660,7 @@ def main():
         strict_host_key_checking=module.params.get('strict_host_key_checking'),
         user_known_hosts_file=module.params.get('user_known_hosts_file'),
         batch_mode=module.params.get('batch_mode'),
+        bind_address=module.params.get('bind_address'),
     )
     state = module.params.get('state')
     config_changed = False
