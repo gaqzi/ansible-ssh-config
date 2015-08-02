@@ -54,6 +54,10 @@ options:
     description:
       - Whether to strictly check the host key when doing connections to the remote host
     choices: ['yes', 'no', 'ask']
+  proxycommand:
+    description:
+      - Sets the ProxyCommand option.
+    required: false
 '''
 
 EXAMPLES = '''
@@ -612,6 +616,7 @@ def main():
             identity_file=dict(type='str'),
             user=dict(default=None, type='str'),
             user_known_hosts_file=dict(default=None, type='str'),
+            proxycommand=dict(default=None, type='str'),
             strict_host_key_checking=dict(
                 default=None,
                 choices=['yes', 'no', 'ask']
@@ -629,6 +634,7 @@ def main():
         user=module.params.get('remote_user'),
         strict_host_key_checking=module.params.get('strict_host_key_checking'),
         user_known_hosts_file=module.params.get('user_known_hosts_file'),
+        proxycommand=module.params.get('proxycommand'),
     )
     state = module.params.get('state')
     config_changed = False
