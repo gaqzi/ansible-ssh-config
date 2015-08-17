@@ -112,6 +112,88 @@ SSH_PORT = 22
 proxy_re = re.compile(r"^(proxycommand)\s*=*\s*(.*)", re.I)
 
 
+SSH_KEYWORDS = (
+    'AddressFamily',
+    'BatchMode',
+    'BindAddress',
+    'ChallengeResponseAuthentication',
+    'CheckHostIP',
+    'Cipher',
+    'Ciphers',
+    'ClearAllForwardings',
+    'Compression',
+    'CompressionLevel',
+    'ConnectTimeout',
+    'ConnectionAttempts',
+    'ControlMaster',
+    'ControlPath',
+    'ControlPersist',
+    'DynamicForward',
+    'EnableSSHKeysign',
+    'EscapeChar',
+    'ExitOnForwardFailure',
+    'ForwardAgent',
+    'ForwardX11',
+    'ForwardX11Timeout',
+    'ForwardX11Trusted',
+    'GSSAPIAuthentication',
+    'GSSAPIClientIdentity',
+    'GSSAPIDelegateCredentials',
+    'GSSAPIKeyExchange',
+    'GSSAPIRenewalForcesRekey',
+    'GSSAPIServerIdentity',
+    'GSSAPITrustDNS',
+    'GSSAPITrustDns',
+    'GatewayPorts',
+    'GlobalKnownHostsFile',
+    'HashKnownHosts',
+    'HostKeyAlgorithms',
+    'HostKeyAlias',
+    'HostName',
+    'HostbasedAuthentication',
+    'IPQoS',
+    'IdentitiesOnly',
+    'IdentityFile',
+    'KbdInteractiveAuthentication',
+    'KbdInteractiveDevices',
+    'KexAlgorithms',
+    'LocalCommand',
+    'LocalForward',
+    'LogLevel',
+    'MACs',
+    'NoHostAuthenticationForLocalhost',
+    'NumberOfPasswordPrompts',
+    'PKCS11Provider',
+    'PasswordAuthentication',
+    'PermitLocalCommand',
+    'Port',
+    'PreferredAuthentications',
+    'Protocol',
+    'ProxyCommand',
+    'PubkeyAuthentication',
+    'RSAAuthentication',
+    'RekeyLimit',
+    'RemoteForward',
+    'RequestTTY',
+    'RhostsRSAAuthentication',
+    'SendEnv',
+    'ServerAliveCountMax',
+    'ServerAliveInterval',
+    'SmartcardDevice',
+    'StrictHostKeyChecking',
+    'TCPKeepAlive',
+    'Tunnel',
+    'TunnelDevice',
+    'UseBlacklistedKeys',
+    'UsePrivilegedPort',
+    'User',
+    'UserKnownHostsFile',
+    'VerifyHostKeyDNS',
+    'VisualHostKey',
+    'XAuthLocation'
+)
+
+
 class LazyFqdn(object):
     """
     Returns the host's fqdn on request as string.
@@ -540,12 +622,18 @@ class ConfigParser(object):
         file_content = ""
         self.config_data = sorted(self.config_data, key=itemgetter("order"))
 
+        replacements = {}
+        for keyword in SSH_KEYWORDS:
+            replacements[keyword.lower()] = keyword
+
         for host_item in self.config_data:
             if host_item.get("type") in ['comment', 'empty_line']:
                 file_content += host_item.get("value") + "\n"
                 continue
             host_item_content = "Host {0}\n".format(host_item.get("host"))
             for key, value in host_item.get("options").iteritems():
+                if key in replacements:
+                    key = replacements[key]
                 if isinstance(value, list):
                     sub_content = ""
                     for value_ in value:
