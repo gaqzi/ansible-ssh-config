@@ -1,5 +1,22 @@
 # Change Log
 
+## [0.2.0] - 2015-08-19
+### Changed
+
+- Convert all keywords to CamelCase in the SSH config file.
+
+  NOTE: If you get the new version of this plugin it'll change all the current
+  keys to conform.
+  (@bwaldvogel on GitHub)
+- Allow SSH to do home directory expansion for `identity_file`
+
+  When providing a value to `identity_file` such as:
+
+  > ~/.ssh/foo
+
+  the path name should be passed as-is for writing to the template, since ssh
+  itself is smart enough to perform home directory expansion.
+  (@conorsch on GitHub)
 ## [0.1.0] - 2015-02-15
 ### Added
 - Remove options that are not present in host definition.
@@ -22,5 +39,6 @@
 
 ## [unversioned initial release] - 2013-11-23
 
+[0.2.0]: https://github.com/gaqzi/ansible-ssh-config/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/gaqzi/ansible-ssh-config/compare/96b7e80e71a4199ff4c5daa4b542adbd46f26a70...v0.1.0
 [unversioned initial release]: https://github.com/gaqzi/ansible-ssh-config/commit/96b7e80e71a4199ff4c5daa4b542adbd46f26a70
