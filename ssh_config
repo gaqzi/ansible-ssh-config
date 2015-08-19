@@ -742,12 +742,12 @@ def main():
     if os.path.exists(config_file) and args['identity_file']:
         dirname = os.path.dirname(config_file)
         identity_file = args['identity_file']
-        if not identity_file.startswith('/') and \
-           not identity_file.startswith('~'):
+        if(not identity_file.startswith('/') and
+           not identity_file.startswith('~')):
             identity_file = os.path.join(dirname, identity_file)
 
-        if not os.path.exists(identity_file) and \
-           not os.path.exists(os.path.expanduser(identity_file)):
+        if(not os.path.exists(identity_file) and
+           not os.path.exists(os.path.expanduser(identity_file))):
             module.fail_json(
                 msg='IdentityFile "{0}" does not exist'.format(identity_file)
             )
