@@ -41,7 +41,7 @@ options:
     description:
       - Specifies the user to log in as.
     choices: []
-  identify_file:
+  identity_file:
     description:
       - The path to an identitity file (ssh private) that will be used
         when connecting to this host.
