@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: Björn Andersson
+  description: A module for Ansible for configuring ssh configuration files.
+  license: LGPL
+  min_ansible_version: 1.8
+  categories:
+  - system
+dependencies: []
