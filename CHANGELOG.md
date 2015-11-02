@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.3.0] - 2015-11-03
+### Changed
+
+- Moved the module to `library/` to allow for easy install as a role
+  in Ansible Galaxy.
+
+- Submitted to Ansible Galaxy which was suggested by @MartinNowak on GitHub
+
 ## [0.2.0] - 2015-08-19
 ### Changed
 
@@ -39,6 +47,7 @@
 
 ## [unversioned initial release] - 2013-11-23
 
+[0.3.0]: https://github.com/gaqzi/ansible-ssh-config/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/gaqzi/ansible-ssh-config/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/gaqzi/ansible-ssh-config/compare/96b7e80e71a4199ff4c5daa4b542adbd46f26a70...v0.1.0
 [unversioned initial release]: https://github.com/gaqzi/ansible-ssh-config/commit/96b7e80e71a4199ff4c5daa4b542adbd46f26a70
