@@ -43,8 +43,34 @@ For the full set of options please look at the top of the module file.
 Copy `ssh_config` into the library directory at the root of your Playbook.
 
 ```
-|- site.yml
-|-- library/ssh_config
+.
+├── library
+│   └── ssh_config
+└── site.yml
+```
+
+Alternatively install it from [Ansible Galaxy] by doing:
+
+```shell
+$ ansible-galaxy install gaqzi.ssh-config -p library/
+```
+
+**Note**: The module needs to be installed into your library folder for
+Ansible to pick it up.
+
+Your directory structure should then look like this:
+
+```
+.
+├── library
+│   └── gaqzi.ssh-config
+│       ├── CHANGELOG.md
+│       ├── library
+│       │   └── ssh_config.py
+│       ├── meta
+│       │   └── main.yml
+│       └── README.md
+└── site.yml
 ```
 
 # Credits
@@ -57,3 +83,4 @@ reusable/shareable with Ansible we ended up here.
 [lineinfile]: http://www.ansibleworks.com/docs/modules.html#lineinfile
 [stormssh]: https://github.com/emre/storm/
 [paramiko]: https://github.com/paramiko/paramiko
+[Ansible Galaxy]: https://galaxy.ansible.com/
