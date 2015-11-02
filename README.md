@@ -40,23 +40,24 @@ For the full set of options please look at the top of the module file.
 
 # Installation
 
-Copy `ssh_config` into the library directory at the root of your Playbook.
+**Note**: The module needs to be installed into your library folder for
+Ansible to pick it up.
 
-```
-.
-├── library
-│   └── ssh_config
-└── site.yml
+## Requirements file
+
+Add the following line to your `requirements.yml`:
+
+```yaml
+- src: gaqzi.ssh-config
+  path: library/
 ```
 
+## Ansible Galaxy
 Alternatively install it from [Ansible Galaxy] by doing:
 
 ```shell
 $ ansible-galaxy install gaqzi.ssh-config -p library/
 ```
-
-**Note**: The module needs to be installed into your library folder for
-Ansible to pick it up.
 
 Your directory structure should then look like this:
 
@@ -70,6 +71,16 @@ Your directory structure should then look like this:
 │       ├── meta
 │       │   └── main.yml
 │       └── README.md
+└── site.yml
+```
+
+## Manual
+Copy `ssh_config` into the library directory at the root of your Playbook.
+
+```
+.
+├── library
+│   └── ssh_config
 └── site.yml
 ```
 
