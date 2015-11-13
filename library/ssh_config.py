@@ -686,7 +686,7 @@ def change_host(options, **kwargs):
             if options.get(k):
                 del options[k]
                 changed = True
-        elif options.get(k) != v:
+        elif ( options.get(k) != v ) and not ( type(options.get(k)) is list and v in options.get(k) ):
             options[k] = v
             changed = True
 
