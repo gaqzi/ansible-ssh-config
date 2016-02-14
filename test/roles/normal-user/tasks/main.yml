@@ -28,6 +28,31 @@
     identity_file=id_rsa.fake
 - include: _assert.yml option=identityfile value=id_rsa.fake
 
+- name: create fake identity file (1/4)
+  file: >
+    path=/home/vagrant/.ssh/id_rsa.fake
+    mode=0600
+    state=touch
+  changed_when: false
+
+- name: Test identity file has not changed - initial setup (2/4)
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    identity_file=id_rsa.fake
+
+- name: Test identity file has not changed - change to same value (3/4)
+  ssh_config: >
+    user=vagrant
+    host=example.com
+    identity_file=id_rsa.fake
+  register: identityfile
+
+- name: assert identity file didn't change when it didn't (4/4)
+  assert:
+    that:
+      - identityfile['changed'] == False
+
 - name: Test user known hosts file
   ssh_config: >
     user=vagrant
