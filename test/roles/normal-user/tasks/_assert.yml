@@ -7,7 +7,7 @@
 
 - assert:
     that:
-      - "'{{ option }} {{ value }}' in config.stdout"
+      - "'{{ option|lower }} {{ value }}' in config.stdout|lower"
 
 - name: reset .ssh/config
   file: >
