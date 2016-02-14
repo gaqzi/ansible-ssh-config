@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.4.0] - 2016-02-xx
+
+- Don't mark list values as always changed. For example IdentityFile was 
+  always being marked as changed.
+  
+  Thanks to @grypyrg on GitHub for the patch!
+
 ## [0.3.0] - 2015-11-03
 ### Changed
 
