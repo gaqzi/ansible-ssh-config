@@ -1,9 +1,9 @@
 # Change Log
 
-## [0.4.0] - 2016-02-xx
+## [0.4.0] - 2016-02-14
 
-- Don't mark list values as always changed. For example IdentityFile was 
-  always being marked as changed.
+- Don't mark list values as always changed. 
+  For example IdentityFile was always being marked as changed.
   
   Thanks to @grypyrg on GitHub for the patch!
 
@@ -54,6 +54,7 @@
 
 ## [unversioned initial release] - 2013-11-23
 
+[0.4.0]: https://github.com/gaqzi/ansible-ssh-config/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/gaqzi/ansible-ssh-config/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/gaqzi/ansible-ssh-config/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/gaqzi/ansible-ssh-config/compare/96b7e80e71a4199ff4c5daa4b542adbd46f26a70...v0.1.0
