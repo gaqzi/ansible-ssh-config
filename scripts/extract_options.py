@@ -24,22 +24,38 @@ class ManFile(object):
     def parse(self):
         with open(self.file, 'r') as f:
             current_option = False
+            past_host = False  # Between description and pattern lies our options
             for line in f:
-                if not line:
+                if not line or not line.strip():
                     continue
 
-                if line.startswith('{0:<13}'.format('')):
-                    self.options[current_option]['description'].append(line.strip())
-                    self.options[current_option]['valid_arguments'].update(self._extract_valid_arguments(line))
-                elif line.startswith('{0:<5}'.format('')):
-                    line = self._remove_control_codes(line.strip())
-                    current_option = line
+                line_had_control_codes = True if '\x08' in line else False
+                line = self._remove_control_codes(line)
+                if not past_host:
+                    if line.startswith('{0:<5}Host'.format('')):
+                        past_host = True
+                    continue
+                elif line.strip() == 'PATTERNS':
+                    break
+
+                if line.startswith('{0:<13}'.format('')) and current_option:
+                    self._extract_description_and_arguments(current_option, line)
+                elif re.match(r' {5}\w', line) and line_had_control_codes:
+                    line = line.split()
+                    current_option = line[0]
                     self.options[current_option] = {
                         'valid_arguments': set(),
                         'description': [],
                     }
-                else:
-                    print(line.strip())
+                    if len(line) > 1:
+                        self._extract_description_and_arguments(current_option, line[1])
+                # else:
+                #     print(line.strip())
+
+    def _extract_description_and_arguments(self, current_option, line):
+        self.options[current_option]['description'].append(line.strip())
+        self.options[current_option]['valid_arguments'].update(
+            self._extract_valid_arguments(line.strip()))
 
     def _remove_control_codes(self, line):
         return self.CONTROL_CODE_REGEX.sub(r'\2', line)
