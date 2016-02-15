@@ -62,3 +62,18 @@ class ManFile(object):
 
     def _extract_valid_arguments(self, line):
         return self.ARGUMENT_REGEX.findall(line)
+
+    def valid_arguments(self, option):
+        """Returns the valid arguments parsed for an option
+
+        Args:
+            option (str): The name of a parsed option
+
+        Raises:
+            KeyError: When the option doesn't exist
+
+        Returns:
+            set: All the parsed valid sets for this option
+        """
+        return self.options[option]['valid_arguments']
+

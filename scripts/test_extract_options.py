@@ -1,24 +1,22 @@
-import pytest
-
 from extract_options import ManFile
 
 
-class TestManSimpleExtraction(object):
+class TestManFullExtraction(object):
     man_file = None
 
     def setup_method(self, method):
-        self.man_file = ManFile('man/one-option')
+        self.man_file = ManFile('man/full')
 
     def test_extract_names(self):
-        assert self.man_file.options.keys() == ['RequestTTY']
+        assert 'RequestTTY' in self.man_file.options.keys()
 
-    def test_extracts_valid_values(self):
-        assert (
-            self.man_file.options['RequestTTY']['valid_arguments'] == {'yes', 'no', 'force', 'auto'}
-        )
+    def test_assert_found_all_options(self):
+        assert len(self.man_file.options.keys()) == 77
 
-
-class TestManFullExtraction(object):
+    def test_assert_found_valid_arguments(self):
+        assert self.man_file.valid_arguments('RequestTTY') == {'yes', 'no', 'force', 'auto'}
+        assert self.man_file.valid_arguments('ClearAllForwardings') == {'yes', 'no'}
+        assert self.man_file.valid_arguments('ControlMaster') == {'ask', 'auto', 'yes', 'no', 'autoask'}
     man_file = None
 
     def setup_method(self, method):
