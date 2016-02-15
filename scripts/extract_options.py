@@ -77,3 +77,17 @@ class ManFile(object):
         """
         return self.options[option]['valid_arguments']
 
+    def description(self, option):
+        """Returns the description of an option
+
+        Args:
+            option (str): The name of a parsed option
+
+        Raises:
+            KeyError: When the option doesn't exist
+
+        Returns:
+            str: The string describing the option
+        """
+        return '\n'.join(
+            map(lambda s: s.strip(), self.options[option]['description']))
