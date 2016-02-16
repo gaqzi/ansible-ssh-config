@@ -1,4 +1,4 @@
-from extract_options import ManFile
+from extract_options import ManFile, underscorize
 
 
 class TestManFullExtraction(object):
@@ -62,3 +62,8 @@ class TestManFormatOptionDict(object):
         assert self.man_file.format_option_dict('XAuthLocation') == dict(
             default=None, type='str'
         )
+
+
+def test_underscorize_name():  # need to go through all the possible options
+    assert underscorize('RequestTTY') == 'request_tty'
+    assert underscorize('RhostsRSAAuthentication') == 'rhosts_rsa_authentication'

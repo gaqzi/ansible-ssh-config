@@ -1,5 +1,36 @@
 import re
 
+UNDERSCORIZE_SPECIAL_CASES = dict(
+    RhostsRSAAuthentication='rhosts_rsa_authentication',
+)
+
+
+def underscorize(value):
+    """Converts a CamelCaseName to camel_case_name
+
+    Cases like RequestTTY will only insert an underscore for the first
+    uppercase character. Uses :var:`UNDERSCORIZE_SPECIAL_CASES` to map
+    certain special cases.
+
+    Args:
+        value (str): The string to underscorize
+
+    Returns:
+        str: The newly minted underscorized version
+    """
+    def replace(match):
+        return '{0}{1}'.format(
+                '_' if match.start() > 0 else '',
+                match.group(1).lower()
+        )
+
+    special_case = UNDERSCORIZE_SPECIAL_CASES.get(value)
+    if special_case:
+        return special_case
+    else:
+        return re.sub(r'([A-Z]+)', replace, value)
+
+
 
 class ManFile(object):
     CONTROL_CODE_REGEX = re.compile('((.)\x08\\2)')
