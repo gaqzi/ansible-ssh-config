@@ -14,7 +14,7 @@ class ManFile(object):
     def parse(self):
         with open(self.file, 'r') as f:
             current_option = False
-            past_host = False  # Between description and pattern lies our options
+            past_host = False  # Between description and pattern lies our option
             for line in f:
                 if not line or not line.strip():
                     continue
@@ -29,7 +29,8 @@ class ManFile(object):
                     break
 
                 if line.startswith('{0:<13}'.format('')) and current_option:
-                    self._extract_description_and_arguments(current_option, line)
+                    self._extract_description_and_arguments(current_option,
+                                                            line)
                 elif re.match(r' {5}\w', line) and line_had_control_codes:
                     line = line.split()
                     current_option = line[0]
@@ -38,14 +39,16 @@ class ManFile(object):
                         'description': [],
                     }
                     if len(line) > 1:
-                        self._extract_description_and_arguments(current_option, line[1])
-                # else:
-                #     print(line.strip())
+                        self._extract_description_and_arguments(
+                            current_option,
+                            line[1]
+                        )
 
     def _extract_description_and_arguments(self, current_option, line):
         self.options[current_option]['description'].append(line.strip())
         self.options[current_option]['valid_arguments'].update(
-            self._extract_valid_arguments(line.strip()))
+            self._extract_valid_arguments(line.strip())
+        )
 
     def _remove_control_codes(self, line):
         return self.CONTROL_CODE_REGEX.sub(r'\2', line)

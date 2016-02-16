@@ -14,9 +14,14 @@ class TestManFullExtraction(object):
         assert len(self.man_file.options.keys()) == 77
 
     def test_assert_found_valid_arguments(self):
-        assert self.man_file.valid_arguments('RequestTTY') == {'yes', 'no', 'force', 'auto'}
-        assert self.man_file.valid_arguments('ClearAllForwardings') == {'yes', 'no'}
-        assert self.man_file.valid_arguments('ControlMaster') == {'ask', 'auto', 'yes', 'no', 'autoask'}
+        request_tty = self.man_file.valid_arguments('RequestTTY')
+        assert request_tty == {'yes', 'no', 'force', 'auto'}
+
+        clear_all_fwding = self.man_file.valid_arguments('ClearAllForwardings')
+        assert clear_all_fwding == {'yes', 'no'}
+
+        control_master = self.man_file.valid_arguments('ControlMaster')
+        assert control_master == {'ask', 'auto', 'yes', 'no', 'autoask'}
 
     def test_description(self):
         assert self.man_file.description('RequestTTY') == '\n'.join([
