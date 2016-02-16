@@ -27,13 +27,25 @@ class TestManFullExtraction(object):
             "login session).  This option mirrors the -t and -T flags for",
             "ssh(1).",
         ])
+
+
+class TestManFormatOptionDict(object):
     man_file = None
 
     def setup_method(self, method):
         self.man_file = ManFile('man/full')
 
-    def test_assert_found_all_options(self):
-        assert len(self.man_file.options.keys()) == 77
+    def test_with_multiple_choices(self):
+        assert self.man_file.format_option_dict('RequestTTY') == dict(
+            default=None, choices=['auto', 'yes', 'force', 'no'],
+        )
 
-    def test_assert_found_valid_arguments(self):
-        pass
+    def test_with_boolean(self):
+        assert self.man_file.format_option_dict('IdentitiesOnly') == dict(
+            default=None, type='bool'
+        )
+
+    def test_with_free_text(self):
+        assert self.man_file.format_option_dict('ProxyCommand') == dict(
+            default=None, type='str'
+        )
