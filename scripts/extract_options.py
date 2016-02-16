@@ -9,16 +9,6 @@ class ManFile(object):
         self.file = file
         self.options = {}
 
-        self.options['RequestTTY'] = {
-            'valid_arguments': {'yes', 'no', 'force', 'auto'},
-            'description': """Specifies whether to request a pseudo-tty for the session.  The
-             argument may be one of: ``no'' (never request a TTY), ``yes''
-             (always request a TTY when standard input is a TTY), ``force''
-             (always request a TTY) or ``auto'' (request a TTY when opening a
-             login session).  This option mirrors the --tt and --TT flags for
-             ssh(1).
-            """
-        }
         self.parse()
 
     def parse(self):
