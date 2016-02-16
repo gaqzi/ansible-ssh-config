@@ -31,6 +31,21 @@ def underscorize(value):
         return re.sub(r'([A-Z]+)', replace, value)
 
 
+def keywordify(value):
+    """Merges :func:`.underscorize`'d strings into SSH keywords
+
+    This is a bit dumb and doesn't deal with "proper" capitalization as
+    it's strictly not necessary for the current parser being used.
+    It's enough if the string is just without delimiters and lowercase.
+
+    Args:
+        value (str): String to keywordify
+
+    Returns:
+        str: Nicely keywordified string
+    """
+    return value.replace('_', '')
+
 
 class ManFile(object):
     CONTROL_CODE_REGEX = re.compile('((.)\x08\\2)')

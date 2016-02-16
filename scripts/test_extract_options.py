@@ -1,4 +1,4 @@
-from extract_options import ManFile, underscorize
+from extract_options import ManFile, underscorize, keywordify
 
 
 class TestManFullExtraction(object):
@@ -67,3 +67,8 @@ class TestManFormatOptionDict(object):
 def test_underscorize_name():  # need to go through all the possible options
     assert underscorize('RequestTTY') == 'request_tty'
     assert underscorize('RhostsRSAAuthentication') == 'rhosts_rsa_authentication'
+
+
+def test_keywordify():
+    assert keywordify('request_tty') == 'requesttty'
+    assert keywordify('rhosts_rsa_authentication') == 'rhostsrsaauthentication'
