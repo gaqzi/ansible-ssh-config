@@ -50,7 +50,15 @@ class TestManFormatOptionDict(object):
             default=None, type='bool'
         )
 
-    def test_with_free_text(self):
+    def test_with_free_text_that_has_none_to_disable(self):
+        # ProxyCommand can optionally be force-set to 'none', while it also takes
+        # a string which is a command to execute. It wouldn't work to treat this specially,
+        # so just ignore that there is an argument if the argument is 'none'.
         assert self.man_file.format_option_dict('ProxyCommand') == dict(
+            default=None, type='str'
+        )
+
+    def test_with_free_text(self):
+        assert self.man_file.format_option_dict('XAuthLocation') == dict(
             default=None, type='str'
         )

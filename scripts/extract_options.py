@@ -106,7 +106,7 @@ class ManFile(object):
         elif arguments == {'yes', 'no'}:
             return dict(default=None, type='bool')
         # Don't know any option that would use this, so warn when it's seen
-        elif len(arguments) == 1:
+        elif len(arguments) == 1 and not arguments == {'none'}:
             raise ValueError(
                 "Don't know what to do with argument value '{0}' "
                 "for option '{1}".format(
