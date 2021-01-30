@@ -1,6 +1,9 @@
 ansible-ssh-config
 ==================
 
+THIS MODULE HAS MIGRATED TO https://github.com/ansible-collections/community.general/blob/main/plugins/modules/system/ssh_config.py
+Use the community version instead.
+
 A module for Ansible for configuring ssh configuration files.
 
 # Why?
